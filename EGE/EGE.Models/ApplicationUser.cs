@@ -6,15 +6,15 @@ namespace EGE.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        private ICollection<Credit> credits; 
-        public ApplicationUser()
-        {
-            this.credits= new HashSet<Credit>();
-        }
+        //private ICollection<Credit> credits; 
+        //public ApplicationUser()
+        //{
+        //    this.credits= new HashSet<Credit>();
+        //}
 
-        public virtual ICollection<Credit> Credits  {
-            get { return this.credits; }
-            set { this.credits = value; } 
-        }
+        //public virtual ICollection<Credit> Credits  {
+        //    get { return this.credits; }
+        //    set { this.credits = value; } 
+        //}
     }
 }

@@ -27,7 +27,7 @@ namespace EGE.Web.Models
         public bool IsUsed { get; set; }
 
         public string OwnerId { get; set; }
-        public ApplicationUser Owner { get; set; }
+     //   public ApplicationUser Owner { get; set; }
      
         [Required]
         public Type Type { get; set; }
