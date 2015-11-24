@@ -1,10 +1,10 @@
 ﻿@model EGE.Web.Models.CreditInputModel
 
 @{
-    ViewBag.Title = "CreateS";
+    ViewBag.Title = "Create";
 }
 
-<h2>CreateS</h2>
+<h2>Create</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CreditInputModel</h4>
+        <h4>Създай нов кредит</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -55,6 +55,14 @@
                 @Html.ValidationMessageFor(model => model.LastUsed)
             </div>
         </div>
+
+        <div class="form-group">
+        @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Type, Enum.GetNames(typeof(EGE.Models.Type)).Select(e => new SelectListItem { Text = e }))            
+                @Html.ValidationMessageFor(model => model.LastUsed)
+            </div>
+    </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

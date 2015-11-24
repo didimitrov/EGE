@@ -1,6 +1,4 @@
-﻿
-
-namespace EGE.Models
+﻿namespace EGE.Models
 {
     public enum Type
     {

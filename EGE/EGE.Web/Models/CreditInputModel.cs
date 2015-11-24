@@ -27,16 +27,12 @@ namespace EGE.Web.Models
         public bool IsUsed { get; set; }
 
         public string OwnerId { get; set; }
-     //   public ApplicationUser Owner { get; set; }
+        public ApplicationUser Owner { get; set; }
      
         [Required]
         public Type Type { get; set; }
 
         public DateTime LastUsed { get; set; }
-        //public void CreateMappings(IConfiguration configuration)
-        //{
-        //    configuration.CreateMap<Credit, CreditInputModel>().ReverseMap()
-        //      .ForMember(x => x.Type, options => options.MapFrom(x => x.Type));
-        //}
+        
     }
 }

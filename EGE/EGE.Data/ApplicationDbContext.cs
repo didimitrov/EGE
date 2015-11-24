@@ -11,9 +11,10 @@ namespace EGE.Data
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
 
         public IDbSet<Credit> Credits { get; set; }
+
     }
 }

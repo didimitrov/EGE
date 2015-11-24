@@ -28,7 +28,7 @@ namespace EGE.Data.Repositories
             return DbSet.AsQueryable();
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(int? id)
         {
             return DbSet.Find(id);
         }
