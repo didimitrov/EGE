@@ -6,18 +6,12 @@ using AutoMapper;
 
 namespace EGE.Web.Infrastructure
 {
-    public class AutoMapperConfig
+
+    public static class AutoMapperConfig
     {
-        private Assembly assembly;
-
-        public AutoMapperConfig(Assembly assembly)
+        public static void Execute()
         {
-            this.assembly = assembly;
-        }
-
-        public void Execute()
-        {
-            var types = this.assembly.GetExportedTypes();
+            var types = Assembly.GetExecutingAssembly().GetExportedTypes();
 
             LoadStandardMappings(types);
 
@@ -26,25 +20,32 @@ namespace EGE.Web.Infrastructure
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
         {
-            var maps = from t in types
-                       from i in t.GetInterfaces()
-                       where
-                           i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>) && !t.IsAbstract
-                           && !t.IsInterface
-                       select new { Source = i.GetGenericArguments()[0], Destination = t };
+            var maps = (from t in types
+                        from i in t.GetInterfaces()
+                        where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
+                              !t.IsAbstract &&
+                              !t.IsInterface
+                        select new
+                        {
+                            Source = i.GetGenericArguments()[0],
+                            Destination = t
+                        });
 
             foreach (var map in maps)
             {
                 Mapper.CreateMap(map.Source, map.Destination);
+                Mapper.CreateMap(map.Destination, map.Source);
             }
         }
 
         private static void LoadCustomMappings(IEnumerable<Type> types)
         {
-            var maps = from t in types
-                       from i in t.GetInterfaces()
-                       where typeof(IHaveCustomMappings).IsAssignableFrom(t) && !t.IsAbstract && !t.IsInterface
-                       select (IHaveCustomMappings)Activator.CreateInstance(t);
+            var maps = (from t in types
+                        from i in t.GetInterfaces()
+                        where typeof(IHaveCustomMappings).IsAssignableFrom(t) &&
+                              !t.IsAbstract &&
+                              !t.IsInterface
+                        select (IHaveCustomMappings)Activator.CreateInstance(t));
 
             foreach (var map in maps)
             {

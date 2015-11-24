@@ -8,8 +8,9 @@ namespace EGE.Models
     public class Credit
     {
         [Key]
-        public int Id { get; set; }
-        public ApplicationUser Owner { get; set; }
+        public int Id { get; set; }        
+        public string OwnerId { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
         public bool IsUsed { get; set; }
         public string  Barcode { get; set; }
         public decimal Sum { get; set; }

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using EGE.Data;
 using EGE.Data.Repositories;
 using EGE.Models;
 using EGE.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace EGE.Web.Controllers
 {
@@ -41,6 +43,31 @@ namespace EGE.Web.Controllers
                     (model.Barcode == null || x.Barcode.Contains(model.Barcode)));
 
             return View(model);
+        }
+
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return this.View(new CreditInputModel { IsUsed = false });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreditInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newCredit = Mapper.Map<Credit>(model);
+            newCredit.OwnerId = User.Identity.GetUserId();
+            newCredit.LastUsed = DateTime.Now;
+            Data.Credits.Add(newCredit);
+
+            Data.SaveChanges();
+            return RedirectToAction("SearchResult");
         }
     }
 }

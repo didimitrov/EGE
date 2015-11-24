@@ -19,8 +19,8 @@ namespace EGE.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var automapperConfig = new AutoMapperConfig(Assembly.GetExecutingAssembly());
-            automapperConfig.Execute();
+          //  var automapperConfig = new AutoMapperConfig(Assembly.GetExecutingAssembly());
+            AutoMapperConfig.Execute();
         }
     }
 }
