@@ -64,7 +64,7 @@ namespace EGE.Web.Controllers
             }
 
             var newCredit = Mapper.Map<Credit>(model);
-            newCredit.OwnerId = User.Identity.GetUserId();
+           // newCredit.OwnerId = User.Identity.GetUserId();
             newCredit.LastUsed = DateTime.Now;
             Data.Credits.Add(newCredit);
 
